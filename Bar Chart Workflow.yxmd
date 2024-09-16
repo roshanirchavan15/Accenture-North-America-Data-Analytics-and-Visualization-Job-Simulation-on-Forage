@@ -1,0 +1,307 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="18" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File RecordLimit="" SearchSubDirs="False" FileFormat="0" OutputFileName="">C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv</File>
+          <FormatSpecificOptions>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreErrors>False</IgnoreErrors>
+            <AllowShareWrite>False</AllowShareWrite>
+            <ImportLine>1</ImportLine>
+            <FieldLen>254</FieldLen>
+            <SingleThreadRead>False</SingleThreadRead>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <Delimeter>,</Delimeter>
+            <QuoteRecordBreak>False</QuoteRecordBreak>
+            <CodePage>28591</CodePage>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Task 3_Final Content Data set.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Field_1" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+            <Field name="Content ID" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+            <Field name="Reaction Type" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+            <Field name="Datetime" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+            <Field name="Content Type" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+            <Field name="Category" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+            <Field name="Sentiment" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+            <Field name="Score" size="254" source="File: C:\Users\rosha\Downloads\Task 3_Final Content Data set.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="126" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Category" selected="True" />
+            <SelectField field="Score" selected="True" type="Int16" size="2" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="222" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Category" action="GroupBy" rename="Category" />
+            <SummarizeField field="Score" action="Sum" rename="Sum_Score" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="318" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="Sum_Score" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Sum_Score - Descending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="438" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>5</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 5 rows</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="PlotlyCharting">
+        <Position x="522" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ChartingFields>
+            <Traces json:Array="true" xmlns:json="http://james.newtonking.com/projects/json">
+              <type>bar</type>
+              <mode>markers</mode>
+              <name>Top 5 Categories</name>
+              <orientation>v</orientation>
+              <xsrc>Category</xsrc>
+              <ysrc>Sum_Score</ysrc>
+              <textposition>None</textposition>
+              <marker>
+                <line>
+                  <width>0</width>
+                </line>
+                <color>rgb(53, 91, 145)</color>
+              </marker>
+              <showlegend>true</showlegend>
+            </Traces>
+            <Layout>
+              <title>
+                <text>
+                </text>
+              </title>
+              <font>
+                <family>sans-serif</family>
+              </font>
+              <autosize>false</autosize>
+              <width>700</width>
+              <height>849</height>
+              <showlegend>true</showlegend>
+              <hovermode>closest</hovermode>
+              <xaxis>
+                <range>-0.5</range>
+                <range>4.5</range>
+                <autorange>true</autorange>
+                <title>
+                  <text>Category</text>
+                </title>
+                <tickfont>
+                  <size>12</size>
+                </tickfont>
+                <nticks>0</nticks>
+                <type>category</type>
+              </xaxis>
+              <yaxis>
+                <range>0</range>
+                <range>78910.526315789481</range>
+                <autorange>true</autorange>
+                <title>
+                  <text>Sum_Score</text>
+                </title>
+                <type>linear</type>
+              </yaxis>
+              <bargap>0.42000000000000004</bargap>
+              <barnorm>
+              </barnorm>
+            </Layout>
+          </ChartingFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="ComposerInteractiveCharting" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerRender.PortfolioComposerRender">
+        <Position x="594" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileType />
+          <OutputFile>C:\Users\rosha\Downloads\charts.png</OutputFile>
+          <BatchMode value="False" />
+          <DataField>Chart</DataField>
+          <Separator>Continuous</Separator>
+          <EmbedDependencies value="False" />
+          <ShowHeader value="False" />
+          <ShowFooter value="False" />
+          <PdfCefOutput value="False" />
+          <PortraitMode value="True" />
+          <PaperType Width="612" Height="792" Left="36" Right="36" Top="36" Bottom="36" />
+          <DefaultStyles>
+            <Style Name="TextStyle" FontName="Arial" FontSize="14" Justify="Left" ForeColor="#000000" Locale="1033" />
+          </DefaultStyles>
+          <PNGResolution>1</PNGResolution>
+          <PNGLargerAction>squeeze</PNGLargerAction>
+          <PNGLargerThanPageChoice>warning</PNGLargerThanPageChoice>
+          <PNGTransparentBG value="False" />
+          <PNGBackColor value="#ffffff" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerRenderPlugin" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Bar Chart Workflow</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="ac3af8ac-00f4-4734-b093-6440aa58f276" />
+      <Telemetry>
+        <PreviousWorkflowId value="a4b01148-2e5c-49b2-b83f-377fea646304" />
+        <OriginWorkflowId value="a4b01148-2e5c-49b2-b83f-377fea646304" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
